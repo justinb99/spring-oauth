@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring OAuth Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .user-info {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .token-section {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .token-display {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+            margin: 10px 0;
+        }
+        .copy-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .copy-btn:hover {
+            background-color: #0056b3;
+        }
+        .copy-success {
+            color: green;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome!</h1>
+        
+        <div class="user-info">
+            <h3>User Information</h3>
+            <p><strong>Name:</strong> <span th:text="${name}">User Name</span></p>
+            <p><strong>Email:</strong> <span th:text="${email}">user@example.com</span></p>
+        </div>
+        
+        <div class="token-section">
+            <h3>Bearer Token</h3>
+            <p>Use this token for API testing in Postman:</p>
+            <div class="token-display" th:text="${accessToken}">token-will-appear-here</div>
+            <button class="copy-btn" onclick="copyToken()">Copy to Clipboard</button>
+            <span id="copySuccess" class="copy-success" style="display: none;">✓ Copied!</span>
+        </div>
+    </div>
+
+    <script>
+        function copyToken() {
+            const tokenText = document.querySelector('.token-display').textContent;
+            navigator.clipboard.writeText(tokenText).then(function() {
+                const successMsg = document.getElementById('copySuccess');
+                successMsg.style.display = 'inline';
+                setTimeout(function() {
+                    successMsg.style.display = 'none';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy token. Please copy manually.');
+            });
+        }
+    </script>
+</body>
+</html>
