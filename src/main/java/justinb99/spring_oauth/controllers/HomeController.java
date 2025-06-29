@@ -36,9 +36,9 @@ public class HomeController {
                         authentication.getAuthorizedClientRegistrationId(),
                         authentication.getName())
                 .map(authorizedClient -> {
-                    String name = principal.getAttribute("name");
-                    String email = principal.getAttribute("email");
-                    String accessToken = authorizedClient.getAccessToken().getTokenValue();
+                    var name = principal.getAttribute("name");
+                    var email = principal.getAttribute("email");
+                    var accessToken = authorizedClient.getAccessToken().getTokenValue();
                     
                     model.addAttribute("name", name);
                     model.addAttribute("email", email);

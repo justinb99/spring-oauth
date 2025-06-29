@@ -61,6 +61,12 @@
             margin-left: 10px;
             font-weight: bold;
         }
+        .token-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
         .logout-btn {
             position: absolute;
             top: 20px;
@@ -91,11 +97,13 @@
         </div>
         
         <div class="token-section">
-            <h3>Bearer Token</h3>
+            <div class="token-header">
+                <h3>Bearer Token</h3>
+                <button class="copy-btn" onclick="copyToken()">Copy to Clipboard</button>
+                <span id="copySuccess" class="copy-success" style="display: none;">✓ Copied!</span>
+            </div>
             <p>Use this token for API testing in Postman:</p>
             <div class="token-display" th:text="${accessToken}">token-will-appear-here</div>
-            <button class="copy-btn" onclick="copyToken()">Copy to Clipboard</button>
-            <span id="copySuccess" class="copy-success" style="display: none;">✓ Copied!</span>
         </div>
     </div>
 

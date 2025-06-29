@@ -41,12 +41,12 @@ public class SecurityConfig {
     @Bean
     public ServerLogoutSuccessHandler oidcLogoutSuccessHandler() {
         return (exchange, authentication) -> {
-            String logoutUrl = "http://localhost:9999/realms/spring-oauth/protocol/openid-connect/logout";
-            String redirectUri = "http://localhost:8080";
+            var logoutUrl = "http://localhost:9999/realms/spring-oauth/protocol/openid-connect/logout";
+            var redirectUri = "http://localhost:8080";
 
             if (authentication instanceof OAuth2AuthenticationToken oauthToken) {
               if (oauthToken.getPrincipal() instanceof OidcUser oidcUser) {
-                String idToken = oidcUser.getIdToken().getTokenValue();
+                var idToken = oidcUser.getIdToken().getTokenValue();
                     logoutUrl += "?id_token_hint=" + idToken + "&post_logout_redirect_uri=" + redirectUri;
                 } else {
                     logoutUrl += "?post_logout_redirect_uri=" + redirectUri;
