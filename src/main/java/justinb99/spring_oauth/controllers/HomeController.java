@@ -1,5 +1,6 @@
 package justinb99.spring_oauth.controllers;
 
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.ReactiveOAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -22,7 +23,13 @@ public class HomeController {
     public Mono<String> index(
             @AuthenticationPrincipal OAuth2User principal,
             OAuth2AuthenticationToken authentication,
-            Model model) {
+            Model model,
+            ServerHttpResponse response) {
+        
+        // Set no-cache headers
+        response.getHeaders().add("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.getHeaders().add("Pragma", "no-cache");
+        response.getHeaders().add("Expires", "0");
         
         return authorizedClientService
                 .loadAuthorizedClient(
